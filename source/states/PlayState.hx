@@ -1886,12 +1886,7 @@ class PlayState extends MusicBeatState
 
 		// update health bar
 		health = value;
-		if (iconP2 == 'verb' || iconP2 == 'abungus') {
-			iconP2.animation.play(iconP2, false, false);
 
-		if (iconP1 == 'verb' || iconP1 == 'abungus') {
-			iconP1.animation.play(iconP1 false, false);
-			
 		var newPercent:Null<Float> = FlxMath.remapToRange(FlxMath.bound(healthBar.valueFunction(), healthBar.bounds.min, healthBar.bounds.max), healthBar.bounds.min, healthBar.bounds.max, 0, 100);
 		healthBar.percent = (newPercent != null ? newPercent : 0);
 
