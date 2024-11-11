@@ -207,6 +207,10 @@ class PlayState extends MusicBeatState
 	public var cameraSpeed:Float = 1;
 	var iconP1Prefix:String;
 	var iconP2Prefix:String;
+	var iconOffset:Int = 26;
+	var healthDraining:Bool = false;
+
+	public var grpIcons:FlxTypedGroup<HealthIcon>;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -1869,7 +1873,6 @@ class PlayState extends MusicBeatState
 
 	public dynamic function updateIconsPosition()
 	{
-		var iconOffset:Int = 26;
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 	}
@@ -1907,23 +1910,19 @@ class PlayState extends MusicBeatState
 				iconP1.animation.play(iconP1Prefix, true, false, 0);
 			}
 		}
-
-		if (!healthDraining) {
-			if (SONG.song.toLowerCase() != 'yap squad'|| SONG.song.toLowerCase() == 'yap squad' && iconP2.animation.curAnim.name != 'cerberus') {
-				if (iconP2Prefix == 'verb' || iconP2Prefix == 'abungus') {
-					iconP2.animation.play(iconP2Prefix, false, false);
-				} else {
-					if (healthBar.percent > 80 && healthBar.percent > 30)
-						iconP2.animation.play(iconP2Prefix, true, false, 1);
-					else if (healthBar.percent < 80 && healthBar.percent < 30)
-						iconP2.animation.play(iconP2Prefix, true, false, 2);
-					else if (healthBar.percent < 80 && healthBar.percent > 30) {
-						iconP2.animation.play(iconP2Prefix, true, false, 0);
-					}
+		if (SONG.song.toLowerCase() != 'yap squad'|| SONG.song.toLowerCase() == 'yap squad' && iconP2.animation.curAnim.name != 'cerberus') {
+			if (iconP2Prefix == 'verb' || iconP2Prefix == 'abungus') {
+				iconP2.animation.play(iconP2Prefix, false, false);
+			} else {
+				if (healthBar.percent > 80 && healthBar.percent > 30)
+					iconP2.animation.play(iconP2Prefix, true, false, 1);
+				else if (healthBar.percent < 80 && healthBar.percent < 30)
+					iconP2.animation.play(iconP2Prefix, true, false, 2);
+				else if (healthBar.percent < 80 && healthBar.percent > 30) {
+					iconP2.animation.play(iconP2Prefix, true, false, 0);
 				}
 			}
 		}
-
 	}
 
 	function openPauseMenu()
